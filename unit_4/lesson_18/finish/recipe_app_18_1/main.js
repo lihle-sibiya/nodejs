@@ -16,7 +16,7 @@ mongoose.connect(
 );
 mongoose.set("useCreateIndex", true);
 const db = mongoose.connection;
-
+//conncted to Mongodb on terminal
 db.once("open", () => {
   console.log("Successfully connected to MongoDB using Mongoose!");
 });
@@ -50,7 +50,7 @@ app.post("/subscribe", subscribersController.saveSubscriber);
 app.use(errorController.logErrors);
 app.use(errorController.respondNoResourceFound);
 app.use(errorController.respondInternalError);
-
+//live server
 app.listen(app.get("port"), () => {
   console.log(`Server running at http://localhost:${app.get("port")}`);
 });

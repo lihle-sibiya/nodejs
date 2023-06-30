@@ -1,8 +1,8 @@
 "use strict";
 
 const port = 3000,
-  express = require("express"),
-  app = express();
+  express = require("express"),//Add express module
+  app = express(); // store express to app variable
 app
   .get("/", (req, res) => {
     res.send("Hello, Universe!");

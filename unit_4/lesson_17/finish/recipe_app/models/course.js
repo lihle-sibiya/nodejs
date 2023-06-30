@@ -1,7 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
-
+//course schema
 const courseSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -12,8 +12,8 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  items: [],
-  zipCode: {
+  items: [],//array of strings to reflect items and ingredients
+  zipCode: {//helps users choos courses closer to them
     type: Number,
     min: [10000, "Zip code too short"],
     max: 99999

@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose"),
+//Subscriber schema 
   subscriberSchema = mongoose.Schema({
     name: String,
     email: String,

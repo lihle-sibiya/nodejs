@@ -6,9 +6,9 @@ const express = require("express"),
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   methodOverride = require("method-override"),
-  expressSession = require("express-session"),
-  cookieParser = require("cookie-parser"),
-  connectFlash = require("connect-flash"),
+  expressSession = require("express-session"),//require
+  cookieParser = require("cookie-parser"),//require
+  connectFlash = require("connect-flash"),//require
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
   subscribersController = require("./controllers/subscribersController"),
@@ -19,7 +19,7 @@ const express = require("express"),
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
-  "mongodb://localhost:27017/recipe_db",
+  "mongodb://127.0.0.1:27017/recipe_db",
   { useNewUrlParser: true }
 );
 mongoose.set("useCreateIndex", true);
@@ -48,7 +48,7 @@ router.use(
 );
 
 router.use(express.json());
-router.use(cookieParser("secret_passcode"));
+router.use(cookieParser("secret_passcode"));//Config ur Express.js app to use cookie-parser as middleware
 router.use(
   expressSession({
     secret: "secret_passcode",
@@ -56,10 +56,10 @@ router.use(
       maxAge: 4000000
     },
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false//U don’t want to send a cookie to the user if no messages are added to the session
   })
 );
-router.use(connectFlash());
+router.use(connectFlash());//Config app to use connect-flash as middleware
 
 router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();

@@ -2,7 +2,7 @@
 
 const express = require("express"),
   app = express(),
-  router = express.Router(),
+  router = express.Router(),//creates a Router object to organise routes
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   errorController = require("./controllers/errorController"),
@@ -43,12 +43,14 @@ router.get("/", homeController.index);
 router.get("/contact", homeController.getSubscriptionPage);
 
 router.get("/users", usersController.index, usersController.indexView);
-router.get("/users/new", usersController.new);
+router.get("/users/new", usersController.new);//takes incoming GET requests to /users/new and renders new.ejs in the usersController.
+//not  Page - POST. It creates action
 router.post("/users/create", usersController.create, usersController.redirectView);
-router.get("/users/:id", usersController.show, usersController.showView);
+router.get("/users/:id", usersController.show, usersController.showView);//Show route
 
 router.get("/subscribers", subscribersController.index, subscribersController.indexView);
 router.get("/subscribers/new", subscribersController.new);
+//POST - not a page
 router.post(
   "/subscribers/create",
   subscribersController.create,

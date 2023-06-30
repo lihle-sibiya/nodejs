@@ -16,15 +16,15 @@ var courses = [
 ];
 
 exports.showCourses = (req, res) => {
-  res.render("courses", {
+  res.render("courses", {//courses.ejs
     offeredCourses: courses
   });
 };
 
 exports.showSignUp = (req, res) => {
-  res.render("contact");
+  res.render("contact");//contact.ejs
 };
 
 exports.postedSignUpForm = (req, res) => {
-  res.render("thanks");
+  res.render("thanks");//thanks.ejs
 };

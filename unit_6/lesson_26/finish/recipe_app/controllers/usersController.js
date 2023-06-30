@@ -1,7 +1,7 @@
 "use strict";
 
 const User = require("../models/user"),
-  passport = require("passport"),
+  passport = require("passport"),//remembers security for logging in
   getUserParams = body => {
     return {
       name: {
@@ -27,12 +27,17 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("users/index");
+    if (req.query.format === "json") {//If the format query param equals json.
+      res.json(res.locals.courses);//then respond with JSON 
+    } else {
+      res.render("courses/index");//Respond with an EJS view if the format query param doesn’t equal json.
+    }
+    //res.render("users/index");
   },
   new: (req, res) => {
     res.render("users/new");
   },
-  create: (req, res, next) => {
+  create: (req, res, next) => {//create new user
     if (req.skip) next();
     let newUser = new User(getUserParams(req.body));
     User.register(newUser, req.body.password, (error, user) => {
@@ -52,7 +57,7 @@ module.exports = {
     if (redirectPath) res.redirect(redirectPath);
     else next();
   },
-  show: (req, res, next) => {
+  show: (req, res, next) => {//show user 
     let userId = req.params.id;
     User.findById(userId)
       .then(user => {
@@ -64,7 +69,7 @@ module.exports = {
         next(error);
       });
   },
-  showView: (req, res) => {
+  showView: (req, res) => {//showview
     res.render("users/show");
   },
   edit: (req, res, next) => {
@@ -80,7 +85,7 @@ module.exports = {
         next(error);
       });
   },
-  update: (req, res, next) => {
+  update: (req, res, next) => {//update
     let userId = req.params.id,
       userParams = {
         name: {

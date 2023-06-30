@@ -5,25 +5,27 @@ const express = require("express"),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
   layouts = require("express-ejs-layouts"),
+  //Require Mongoose
   mongoose = require("mongoose"),
-  Subscriber = require("./models/subscriber");
-
+  Subscriber = require("./models/subscriber");//Require subcriber: previously exported in subscriber.js
+//Set up the connection to ur database
 mongoose.connect(
-  "mongodb://localhost:27017/recipe_db",
+  "mongodb://127.0.0.1:27017/recipe_db",
   { useNewUrlParser: true }
 );
 mongoose.set("useCreateIndex", true);
+//Assign the database to the db variable.
 const db = mongoose.connection;
-
+//Log a message when the database is connected in main.js
 db.once("open", () => {
   console.log("Successfully connected to MongoDB using Mongoose!");
 });
-
-var myQuery = Subscriber.findOne({
+//Page 153: find documents in your database
+let myQuery = Subscriber.findOne({
   name: "Jon Wexler"
-}).where("email", /wexler/);
-
-myQuery.exec((error, data) => {
+}).where("email", /wexler/);//finds doc where email has string "wexler"
+//Listing 14.6 Run a query with callback function to handle errors and data
+myQuery.exec((error, data) => {//data returned by database
   if (data) console.log(data.name);
 });
 

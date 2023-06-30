@@ -11,17 +11,17 @@ const express = require("express"),
   connectFlash = require("connect-flash"),
   expressValidator = require("express-validator"),
   passport = require("passport"),
-  errorController = require("./controllers/errorController"),
-  homeController = require("./controllers/homeController"),
-  subscribersController = require("./controllers/subscribersController"),
-  usersController = require("./controllers/usersController"),
-  coursesController = require("./controllers/coursesController"),
+  //errorController = require("./controllers/errorController"),
+  //homeController = require("./controllers/homeController"),
+  //subscribersController = require("./controllers/subscribersController"),
+  //usersController = require("./controllers/usersController"),
+  //coursesController = require("./controllers/coursesController"),
   User = require("./models/user");
 
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
-  "mongodb://localhost:27017/recipe_db",
+  "mongodb://127.0.0.1:27017/recipe_db",
   { useNewUrlParser: true }
 );
 mongoose.set("useCreateIndex", true);
@@ -35,7 +35,7 @@ db.once("open", () => {
 app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");
 
-app.use(express.static("public"));
+app.use(express.static("public"));//tell app to use this route as middleware
 app.use(layouts);
 app.use(
   express.urlencoded({

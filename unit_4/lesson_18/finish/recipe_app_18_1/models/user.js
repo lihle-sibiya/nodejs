@@ -39,7 +39,7 @@ const mongoose = require("mongoose"),
       timestamps: true
     }
   );
-
+//add first name and last name to become full name
 userSchema.virtual("fullName").get(function() {
   return `${this.name.first} ${this.name.last}`;
 });

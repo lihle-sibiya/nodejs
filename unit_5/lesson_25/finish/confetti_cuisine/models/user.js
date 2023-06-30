@@ -43,7 +43,7 @@ var userSchema = new Schema(
 userSchema.virtual("fullName").get(function() {
   return `${this.name.first} ${this.name.last}`;
 });
-
+//pre-save hook is to encrypt the password before storing it in the Mongo DB  user document
 userSchema.pre("save", function(next) {
   let user = this;
   if (user.subscribedAccount === undefined) {

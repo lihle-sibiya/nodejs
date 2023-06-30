@@ -45,7 +45,7 @@ app.use(homeController.logRequestPaths);
 
 app.get("/name", homeController.respondWithName);
 app.get("/items/:vegetable", homeController.sendReqParam);
-
+//getting all  subscribers
 app.get("/subscribers", subscribersController.getAllSubscribers, (req, res, next) => {
   res.render("subscribers", { subscribers: req.data });
 });

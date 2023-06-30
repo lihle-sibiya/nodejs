@@ -17,9 +17,11 @@ module.exports = {
   indexView: (req, res) => {
     res.render("users/index");
   },
-  new: (req, res) => {
-    res.render("users/new");
+  new: (req, res) => {//Add the new action to render a form.
+    res.render("users/new");//show the new.ejs in the users forlder
   },
+
+  //Add the create action to save the user to the database.
   create: (req, res, next) => {
     let userParams = {
       name: {
@@ -30,35 +32,37 @@ module.exports = {
       password: req.body.password,
       zipCode: req.body.zipCode
     };
+    //C in CRUD
     User.create(userParams)
       .then(user => {
         res.locals.redirect = "/users";
         res.locals.user = user;
         next();
       })
-      .catch(error => {
+      .catch(error => {//error handling
         console.log(`Error saving user: ${error.message}`);
         next(error);
       });
   },
-  redirectView: (req, res, next) => {
+  redirectView: (req, res, next) => {//Render the view in a separate redirectView action
     let redirectPath = res.locals.redirect;
     if (redirectPath) res.redirect(redirectPath);
     else next();
   },
-  show: (req, res, next) => {
-    let userId = req.params.id;
-    User.findById(userId)
+  //The R in CRUD
+  show: (req, res, next) => {//add the show action
+    let userId = req.params.id;//collect user’s ID from the URL parameters
+    User.findById(userId)//Find a user by its ID.
       .then(user => {
         res.locals.user = user;
         next();
       })
-      .catch(error => {
-        console.log(`Error fetching user by ID: ${error.message}`);
+      .catch(error => {//if error occurs
+        console.log(`Error fetching user by ID: ${error.message}`);//log error message
         next(error);
       });
   },
-  showView: (req, res) => {
+  showView: (req, res) => {//render the show page and pass the user object to display that user’s information
     res.render("users/show");
   }
 };

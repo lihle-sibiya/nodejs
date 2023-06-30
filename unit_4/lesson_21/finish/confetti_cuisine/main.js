@@ -13,7 +13,7 @@ const express = require("express"),
   methodOverride = require("method-override");
 
 mongoose.connect(
-  "mongodb://localhost:27017/confetti_cuisine",
+  "mongodb://127.0.0.1:27017/confetti_cuisine",//connect to database
   { useNewUrlParser: true }
 );
 mongoose.set("useCreateIndex", true);
@@ -22,7 +22,7 @@ app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");
 
 router.use(
-  methodOverride("_method", {
+  methodOverride("_method", {//listen to brower
     methods: ["POST", "GET"]
   })
 );

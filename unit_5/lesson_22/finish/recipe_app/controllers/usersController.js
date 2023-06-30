@@ -1,7 +1,7 @@
 "use strict";
 
 const User = require("../models/user"),
-  getUserParams = body => {
+  getUserParams = body => {//makes referencing all the user params easier later
     return {
       name: {
         first: body.first,
@@ -25,7 +25,7 @@ module.exports = {
         next(error);
       });
   },
-  indexView: (req, res) => {
+  indexView: (req, res) => {//pass thre flash mesage with a rendered view
     res.render("users/index", {
       flashMessages: {
         success: "Loaded all users!"
@@ -35,15 +35,17 @@ module.exports = {
   new: (req, res) => {
     res.render("users/new");
   },
+  //New user signs up, display flash message
   create: (req, res, next) => {
     let userParams = getUserParams(req.body);
     User.create(userParams)
       .then(user => {
-        req.flash("success", `${user.fullName}'s account created successfully!`);
+        req.flash("success", `${user.fullName}'s account created successfully!`);//flash message
         res.locals.redirect = "/users";
         res.locals.user = user;
         next();
       })
+      //something went wrong
       .catch(error => {
         console.log(`Error saving user: ${error.message}`);
         res.locals.redirect = "/users/new";

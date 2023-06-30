@@ -10,16 +10,16 @@ app.use(
     extended: false
   })
 );
-app.use(express.json());
+app.use(express.json());//parse URL-encoded data
 
 app.use((req, res, next) => {
   console.log(`request made to: ${req.url}`);
   next();
 });
 
-app.post("/", (req, res) => {
-  console.log(req.body);
-  console.log(req.query);
+app.post("/", (req, res) => {//creates new POS route for home page
+  console.log(req.body);//incoming equest body
+  console.log(req.query);//query string: collect stored values in URL path
   res.send("POST Successful!");
 });
 

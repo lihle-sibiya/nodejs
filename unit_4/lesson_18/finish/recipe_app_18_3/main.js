@@ -40,7 +40,7 @@ app.use(homeController.logRequestPaths);
 app.get("/", homeController.index);
 app.get("/contact", homeController.getSubscriptionPage);
 
-app.get("/users", usersController.index, usersController.indexView);
+app.get("/users", usersController.index, usersController.indexView);//create index route
 app.get("/subscribers", subscribersController.index, subscribersController.indexView);
 app.get("/courses", coursesController.index, coursesController.indexView);
 

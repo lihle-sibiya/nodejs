@@ -34,7 +34,7 @@ db.once("open", () => {
 
 app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");
-app.set("token", process.env.TOKEN || "recipeT0k3n");
+app.set("token", process.env.TOKEN || "recipeT0k3n");//additional token ensures that only users who make requests with a valid token can see data.
 
 app.use(express.static("public"));
 app.use(layouts);

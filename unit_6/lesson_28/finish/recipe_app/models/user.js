@@ -47,7 +47,7 @@ userSchema.virtual("fullName").get(function() {
   return `${this.name.first} ${this.name.last}`;
 });
 
-userSchema.pre("save", function(next) {
+userSchema.pre("save", function(next) {//create pre-save hook to generate an API token
   let user = this;
   if (user.subscribedAccount === undefined) {
     Subscriber.findOne({
@@ -68,7 +68,7 @@ userSchema.pre("save", function(next) {
 
 // userSchema.pre("save", function(next) {
 //   let user = this;
-//   if (!user.apiToken) user.apiToken = randToken.generate(16);
+//   if (!user.apiToken) user.apiToken = randToken.generate(16);//check for e=an existing API token and generate a new one with randToken.generate
 //   next();
 // });
 

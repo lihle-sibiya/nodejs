@@ -32,9 +32,10 @@ module.exports = {
   new: (req, res) => {
     res.render("users/new");
   },
-  create: (req, res, next) => {
+  create: (req, res, next) => {//create new user
     if (req.skip) next();
     let newUser = new User(getUserParams(req.body));
+    //Lsiting 24.4 Register new user
     User.register(newUser, req.body.password, (error, user) => {
       if (user) {
         req.flash("success", `${user.fullName}'s account created successfully!`);
@@ -42,7 +43,7 @@ module.exports = {
         next();
       } else {
         req.flash("error", `Failed to create user account because: ${error.message}.`);
-        res.locals.redirect = "/users/new";
+        res.locals.redirect = "/users/new";//Set redirect for successful user creation.
         next();
       }
     });
@@ -119,7 +120,9 @@ module.exports = {
   login: (req, res) => {
     res.render("users/login");
   },
+  //Call on passport to authenticate a user via the local strategy.
   authenticate: passport.authenticate("local", {
+    //Set up success and failure flash messages and redirect paths based on the user’s authentication status.
     failureRedirect: "/users/login",
     failureFlash: "Failed to login.",
     successRedirect: "/",

@@ -10,6 +10,7 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
   expressValidator = require("express-validator"),
+  //Listing 24.1 - Requiring and initializing passport
   passport = require("passport"),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
@@ -61,12 +62,14 @@ router.use(
     saveUninitialized: false
   })
 );
-
+//Listing 24.1 - Requiring and initializing passport
 router.use(passport.initialize());
 router.use(passport.session());
+//Lisitng 24.1 Requiring and initializing passport
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+//
 router.use(connectFlash());
 
 router.use((req, res, next) => {

@@ -125,15 +125,17 @@ module.exports = {
     res.render("users/login");
   },
   authenticate: (req, res, next) => {
+    //Query for one user by email.
     User.findOne({ email: req.body.email })
       .then(user => {
-        if (user) {
+        if (user) {//Check whether a user is found.
+          //Call the password comparison method on the User model.
           user.passwordComparison(req.body.password).then(passwordsMatch => {
-            if (passwordsMatch) {
+            if (passwordsMatch) {//Check whether the passwords match.
               res.locals.redirect = `/users/${user._id}`;
               req.flash("success", `${user.fullName}'s logged in successfully!`);
               res.locals.user = user;
-            } else {
+            } else {//passwords do not match
               req.flash("error", "Failed to log in user account: Incorrect Password.");
               res.locals.redirect = "/users/login";
             }
@@ -145,6 +147,8 @@ module.exports = {
           next();
         }
       })
+
+      //Log errors to console and pass to the next middleware error handler.
       .catch(error => {
         console.log(`Error logging in user: ${error.message}`);
         next(error);
@@ -163,8 +167,8 @@ module.exports = {
       .notEmpty()
       .isInt()
       .isLength({
-        min: 5,
-        max: 5
+        min: 5,//zipcode must exactly be 5
+        max: 5//zipcode must exactly be 5
       })
       .equals(req.body.zipCode);
     req.check("password", "Password cannot be empty").notEmpty();

@@ -6,7 +6,7 @@ const express = require("express"),
   layouts = require("express-ejs-layouts");
 
 app.set("port", process.env.PORT || 3000);
-app.set("view engine", "ejs");
+app.set("view engine", "ejs");// templating: setes views engine as ejs
 
 app.use(layouts);
 app.use(

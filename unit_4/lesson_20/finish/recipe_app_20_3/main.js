@@ -39,9 +39,8 @@ router.use(
 );
 
 router.use(
-  methodOverride("_method", {
-    methods: ["POST", "GET"]
-  })
+  methodOverride("_method", {//middlware that can interpret POST requests as PUT requests methods: ["POST", "GET"]
+  })//Configure the application router to use methodOverride as middleware.
 );
 
 router.use(express.json());
@@ -53,9 +52,9 @@ router.get("/contact", homeController.getSubscriptionPage);
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post("/users/create", usersController.create, usersController.redirectView);
-router.get("/users/:id/edit", usersController.edit);
-router.put("/users/:id/update", usersController.update, usersController.redirectView);
-router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
+router.get("/users/:id/edit", usersController.edit);//Edit route - makes changes to user database
+router.put("/users/:id/update", usersController.update, usersController.redirectView);//Update route - makes changes to user database
+router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);//delete router
 router.get("/users/:id", usersController.show, usersController.showView);
 
 router.get("/subscribers", subscribersController.index, subscribersController.indexView);
@@ -66,11 +65,13 @@ router.post(
   subscribersController.redirectView
 );
 router.get("/subscribers/:id/edit", subscribersController.edit);
+//U is Update in CRUD
 router.put(
   "/subscribers/:id/update",
   subscribersController.update,
   subscribersController.redirectView
 );
+//D is Delete in CRUD
 router.delete(
   "/subscribers/:id/delete",
   subscribersController.delete,

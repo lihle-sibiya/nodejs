@@ -22,17 +22,19 @@ exports.getAllSubscribers = (req, res) => {
 exports.getSubscriptionPage = (req, res) => {
   res.render("contact");
 };
-
+//the /subscribe calls this one
 exports.saveSubscriber = (req, res) => {
+
+  //maps the form data to the module
   let newSubscriber = new Subscriber({
     name: req.body.name,
     email: req.body.email,
     zipCode: req.body.zipCode
   });
-  newSubscriber
-    .save()
+  //a new subscrbriber is created in the module via Mongoose
+  newSubscriber.save()
     .then(result => {
-      res.render("thanks");
+      res.render("thanks");// thanks.ejs in views is called
     })
     .catch(error => {
       if (error) res.send(error);

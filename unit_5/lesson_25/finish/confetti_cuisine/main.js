@@ -19,7 +19,7 @@ const express = require("express"),
   User = require("./models/user");
 
 mongoose.connect(
-  "mongodb://localhost:27017/confetti_cuisine",
+  "mongodb://127.0.0.1:27017/confetti_cuisine",
   { useNewUrlParser: true }
 );
 mongoose.set("useCreateIndex", true);
@@ -79,9 +79,12 @@ router.post(
   usersController.create,
   usersController.redirectView
 );
+//non parameterized routes
 router.get("/users/login", usersController.login);
 router.post("/users/login", usersController.authenticate);
 router.get("/users/logout", usersController.logout, usersController.redirectView);
+
+//parameterized routes routes are below non-parametersized routes
 router.get("/users/:id/edit", usersController.edit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
 router.get("/users/:id", usersController.show, usersController.showView);

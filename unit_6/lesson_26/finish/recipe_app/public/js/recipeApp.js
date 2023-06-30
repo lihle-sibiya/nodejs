@@ -1,19 +1,19 @@
 $(document).ready(() => {
-  $("#modal-button").click(() => {
-    $(".modal-body").html("");
-    $.get("/courses?format=json", data => {
-      data.forEach(course => {
-        $(".modal-body").append(
-          `<div>
-						<span class="course-title">
-							${course.title}
-						</span>
-						<div class="course-description">
-							${course.description}
-						</div>
-					</div>`
-        );
+  $("#modal-button").click(() => {//Listen for a click event on the  modal button
+      $(".modal-body").html('');//Clear the modal from any previous content.
+      $.get("/courses?format=json", (data) => {//Request data from /courses?format=js on asynchronously
+          data.forEach((course) => {//Loop through array of data in the response
+              $(".modal-body").append(//Append each course to the modal.
+                  `<div>
+  <span class="course-title">
+  ${course.title}
+  </span>
+  <div class="course-description">
+  ${course.description}
+  </div>
+  </div>` 
+              );
+          });
       });
-    });
   });
 });

@@ -4,16 +4,16 @@ const port = 3000,
   express = require("express"),
   app = express();
 
-app.use(
+app.use(//Define a middleware function
   express.urlencoded({
     extended: false
   })
 );
 app.use(express.json());
 
-app.use((req, res, next) => {
-  console.log(`request made to: ${req.url}`);
-  next();
+app.use((req, res, next) => {//middleware with next parameter
+  console.log(`request made to: ${req.url}`);//logs path to terminal
+  next();//next to let Express js know tht ur funct is complete
 });
 
 app.post("/", (req, res) => {

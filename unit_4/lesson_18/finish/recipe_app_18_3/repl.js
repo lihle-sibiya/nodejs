@@ -11,11 +11,11 @@ mongoose.Promise = global.Promise;
 Subscriber.remove({})
   .then(items => console.log(`Removed ${items.n} records!`))
   .then(() => {
-    return Course.remove({});
+    return Course.remove({});// D is Delete in CRUD
   })
   .then(items => console.log(`Removed ${items.n} records!`))
   .then(() => {
-    return Subscriber.create({
+    return Subscriber.create({ //C in CRUD is Create
       name: "Jon",
       email: "jon@jonwexler.com",
       zipCode: "12345"
@@ -25,7 +25,7 @@ Subscriber.remove({})
     console.log(`Created Subscriber: ${subscriber.getInfo()}`);
   })
   .then(() => {
-    return Subscriber.findOne({
+    return Subscriber.findOne({//R is Read in CRUD
       name: "Jon"
     });
   })
@@ -34,7 +34,7 @@ Subscriber.remove({})
     console.log(`Found one subscriber: ${subscriber.getInfo()}`);
   })
   .then(() => {
-    return Course.create({
+    return Course.create({//C in CRUD
       title: "Tomato Land",
       description: "Locally farmed tomatoes only",
       zipCode: 12345,
@@ -47,14 +47,14 @@ Subscriber.remove({})
   })
   .then(() => {
     testSubscriber.courses.push(testCourse);
-    testSubscriber.save();
+    testSubscriber.save();//Part of Create - C in CRUD
   })
   .then(() => {
     return Subscriber.populate(testSubscriber, "courses");
   })
   .then(subscriber => console.log(subscriber))
   .then(() => {
-    return Subscriber.find({
+    return Subscriber.find({//R is Read in CRUD
       courses: mongoose.Types.ObjectId(testCourse._id)
     });
   })

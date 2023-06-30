@@ -4,6 +4,7 @@ const mongoose = require("mongoose"),
   { Schema } = mongoose,
   Subscriber = require("./subscriber"),
   bcrypt = require("bcrypt"),
+  //page 277 Lisitng 24.3 - Adding the passport-local-mongoose plugin to the user schema
   passportLocalMongoose = require("passport-local-mongoose"),
   userSchema = new Schema(
     {

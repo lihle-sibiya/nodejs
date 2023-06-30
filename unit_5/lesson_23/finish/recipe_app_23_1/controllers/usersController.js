@@ -128,12 +128,12 @@ module.exports = {
       email: req.body.email
     })
       .then(user => {
-        if (user && user.password === req.body.password) {
+        if (user && user.password === req.body.password) {//databse passwors is equal to form password
           res.locals.redirect = `/users/${user._id}`;
           req.flash("success", `${user.fullName}'s logged in successfully!`);
           res.locals.user = user;
           next();
-        } else {
+        } else {////databse passwors is NOT equal to form password
           req.flash(
             "error",
             "Your account or password is incorrect. Please try again or contact your system administrator!"
