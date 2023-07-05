@@ -44,6 +44,10 @@ app.get('/contact', (req, res) => { //called when request to /contact comes
     res.sendFile(path.resolve(__dirname, 'contact.html'))
 })
 
-app.listen(3000, () => {
-    console.log("App listening on port 3000")
+//app.listen(3000, () => {
+  //  console.log("App listening on port 3000")
+//})
+
+app.listen(4000, () => {
+    console.log('App listening on port 4000')
 })
