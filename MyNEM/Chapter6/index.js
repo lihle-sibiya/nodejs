@@ -15,11 +15,21 @@ const ejs = require('ejs')
 app.set('view engine', 'ejs')//tell Express to use EJS 
 
 app.use(express.static('public'))
+app.use(express.json()) //body parsing middleware
+app.use(express.urlencoded()) //body parsing middleware
+
+const BlogPost = require('./models/BlogPost.js')
 
 //page 43 routes ejs
-app.get('/', (req, res) => {
-    res.render('index');//will look for index.ejs in views folder
+app.get('/', async (req, res) => {
+    const blogposts = await BlogPost.find({})
+    res.render('index', {//will look for index.ejs in views folder
+        blogposts
+    });
 })
+
+
+
 //page 44 - GET routes EJS
 app.get('/about', (req, res) => {
     res.render('about')
@@ -34,6 +44,13 @@ app.get('/post', (req, res) => {
 //Page 61: Route to Create New Post
 app.get('/posts/new', (req, res) => {
     res.render('create')
+})
+
+//Page 65: POST Request for posts/store
+app.post('/posts/store', (req, res) => {
+    BlogPost.create(req.body) //gets form data
+        .then(blogpost => res.redirect('/'))
+        .catch(error => console.log(error))
 })
 
 app.listen(3000, () => {
