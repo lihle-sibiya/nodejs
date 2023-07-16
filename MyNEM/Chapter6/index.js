@@ -1,22 +1,19 @@
 //page 43 - use EJS
 const express = require('express')
 const path = require('path')
-
 //page 53 - Connecting to MongoDB from Node
 const mongoose = require('mongoose');
+
+const app = new express()
+const ejs = require('ejs')
+app.set('view engine', 'ejs')//tell Express to use EJS 
+
 mongoose.connect('mongodb://127.0.0.1/my_database', {
     useNewUrlParser:
         true
 })
 
-const app = new express()
-const ejs = require('ejs')
 
-app.set('view engine', 'ejs')//tell Express to use EJS 
-
-app.use(express.static('public'))
-app.use(express.json()) //body parsing middleware
-app.use(express.urlencoded()) //body parsing middleware
 
 const BlogPost = require('./models/BlogPost.js')
 
