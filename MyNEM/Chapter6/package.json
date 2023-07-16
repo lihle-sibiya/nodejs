@@ -5,7 +5,7 @@
     "mongoose": "^7.3.2",
     "nodemon": "^2.0.22"
   },
-  "name": "chapter4",
+  "name": "chapter6",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -14,5 +14,9 @@
   },
   "author": "Lihle",
   "license": "ISC",
-  "description": ""
+  
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }

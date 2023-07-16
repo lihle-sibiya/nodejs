@@ -1,0 +1,17 @@
+***CHAPTER 6(converting callback functions to promises)***
+Instead of using callbacks use promises by adding a .then instance 
+as well as a .catch instance to print any errors into the terminal.
+
+For example:
+
+app.post('/posts/store', (req, res) => {
+    BlogPost.create(req.body)
+        .then(blogpost => res.redirect('/'))
+        .catch(error => console.log(error))
+})
+ 
+instaed of 
+app.post('/posts/store', (req, res) => {
+      res.redirect('/')
+}; error => console.log(error)
+})

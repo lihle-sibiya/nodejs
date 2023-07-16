@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <!--Page 48: layouts header-->
 <%- include('layouts/header');-%>
 
@@ -35,17 +35,21 @@
                                         <%= blogposts[i].body %>
                                     </h3>
                                 </a>
-                            <p class="post-meta">
-                                Posted by
-                                <a href="#"><%= blogposts[i].username %></a> on <%= blogposts[i].datePosted.toDateString() %></p>
-                            </p>
-                        </div>
-                        <!-- Divider-->
-                        <hr class="my-4" />
-                        <!-- Pager-->
-                        <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase"
-                                href="#!">Older
-                                Posts →</a></div>
+                                <p class="post-meta"> Posted by
+                                    <a href="#">
+                                        <%= blogposts[i].username %>
+                                    </a>
+                                    on <%= blogposts[i].datePosted.toDateString() %>
+                                </p>
+                            </div>
+                            <hr>
+                            <% } %>
+                                <!-- Divider-->
+                                <hr class="my-4" />
+
+                                <!-- Pager-->
+                                <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase"
+                                        href="#!">Older Posts →</a></div>
                     </div>
                 </div>
             </div>
