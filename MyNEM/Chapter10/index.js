@@ -17,6 +17,8 @@ const storePostController = require('./controllers/storePostController')
 const getPostController = require('./controllers/getPostController')
 const newUserController = require('./controllers/newUserController')
 const storeUserController = require('./controllers/storeUserController')
+const loginController = require('./controllers/loginController')
+const loginUserController = require('./controllers/loginUserController')
 
 app.use(express.static('public'))
 app.use(fileUpload())
@@ -28,10 +30,12 @@ app.use('/posts/store',validateMiddleware) //to use validation middleware only t
 
 app.get('/',homeController)
 app.get('/auth/register', newUserController)
+app.get('/auth/login', loginController);
 
 app.get('/posts/new', newPostController)
 app.get('/post/:id',getPostController)
 app.post('/users/register', storeUserController)
+app.post('/users/login',loginUserController)
 app.post('/posts/store', storePostController)
 
 
