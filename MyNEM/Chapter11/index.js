@@ -25,7 +25,7 @@ const loginUserController = require('./controllers/loginUserController')
 app.use(express.static('public'))
 
 app.use(expressSession({
-    secret: 'keyboard cat'
+    secret: 'keyboard cat' //used by express-session package to sign and encrypt session ID cookie
 }))
 
 app.use(fileUpload())

@@ -14,6 +14,7 @@ module.exports = (req, res) => {
         })
         .then(same => {
             if (same) {
+                req.session.userId = user._id; //assign ID to the user session - to know when user logged in
                 res.redirect('/');
             } else {
                 console.log('Invalid password');
