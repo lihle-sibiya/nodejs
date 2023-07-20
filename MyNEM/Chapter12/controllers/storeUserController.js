@@ -8,10 +8,11 @@ module.exports = (req, res) => {
         })
         .catch(error => {
             const validationErrors = Object.keys(error.errors).map(key =>
-                error.errors[key].message
-            );
-            console.log(error)
-            req.session.validationErrors = validationErrors; 
+                error.errors[key].message);
+            console.log(error);
+            req.flash('validationErrors', validationErrors)
+            req.flash('data', req.body)//key in data to avoid retyping username/password
+            //req.session.validationErrors = validationErrors; 
             res.redirect('/auth/register');
         });
 };

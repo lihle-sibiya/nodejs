@@ -1,5 +1,6 @@
 const express = require('express')
 const expressSession = require('express-session');
+const flash = require('connect-flash');
 const mongoose = require('mongoose')//page 53 - Connecting to MongoDB from Node
 
 mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true })
@@ -37,6 +38,7 @@ app.use(fileUpload())
 app.use(express.json()) //body parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use('/posts/store', validateMiddleware) //to use validation middleware only to create posts
+app.use(flash());
 
 global.loggedIn = null; //global variable logged in with be accessible in all EJS files
 

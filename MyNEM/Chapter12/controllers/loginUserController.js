@@ -3,23 +3,24 @@ const User = require('../models/User');
 
 module.exports = (req, res) => {
     const { username, password } = req.body;
-    let validUser; //declare user to avoid error: user not defined
 
     User.findOne({ username: username })
         .then(user => {
             if (user) {
-                validUser = user;
-                return bcrypt.compare(password, user.password);
+                return bcrypt.compare(password, user.password)
+                    .then(same => {
+                        if (same) {
+                            req.session.userId = user._id;
+                            res.redirect('/');
+                        } else {
+                            console.log('Invalid password');
+                            req.flash('error', 'Invalid password'); //flash message for invalid password
+                            res.redirect('/auth/login');
+                        }
+                    });
             } else {
                 console.log('Invalid username');
-            }
-        })
-        .then(same => {
-            if (same) {
-                req.session.userId = validUser._id; //assign ID to the user session - to know when user logged in
-                res.redirect('/');
-            } else {
-                console.log('Invalid password');
+                req.flash('error', 'Invalid username'); //flash message for invalid username
                 res.redirect('/auth/login');
             }
         })
