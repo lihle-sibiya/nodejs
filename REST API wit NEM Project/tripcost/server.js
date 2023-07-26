@@ -1,15 +1,34 @@
 const express = require("express")
-const mongo = require("mongodb").MongoClient
+const mongo = require("mongodb").MongoClient;
 
-const url = "mongodb://127.0.0.1:27017"
+const mongoose = require('mongoose')
 
-//Initialize the Express app
+mongoose.connect('mongodb://127.0.0.1/tripcost', { useNewUrlParser: true })
+const url = "mongodb://127.0.0.1/tripcost";
 const app = express()
-
 
 //use the express.json() middleware
 app.use(express.json())
 
+//connect to the database using connect():
+let db, trips, expenses
+
+mongo.connect(
+    'mongodb://127.0.0.1',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    },
+    (err, client) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        db = client.db("tripcost")
+        trips = db.collection("trips") //get a reference to the trips collections
+        expenses = db.collection("expenses") //get a reference to the expenses collections
+    }
+)
 
 //add the stubs for the API endpoints
 app.post("/trip", (req, res) => {//a way for client to add trip using the POST /trip endpoint
@@ -62,8 +81,6 @@ app.post("/expense", (req, res) => {
     )
 })
 
-
-
 //List all expenses
 app.get("/expenses", (req, res) => {
     expenses.find({ trip: req.body.trip }).toArray((err, items) => {
@@ -76,41 +93,19 @@ app.get("/expenses", (req, res) => {
     })
 })
 
-
-
-// connect to the database using connect():
-let db, trips, expenses
-
-mongo.connect(
-    url,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    },
-    (err, client) => {
-        if (err) {
-            console.error(err)
-            return
-        }
-        db = client.db("tripcost")
-        trips = db.collection("trips") //get a reference to the trips collections
-        expenses = db.collection("expenses") //get a reference to the expenses collections
-    }
-)
-
 //Add an expense
-{
+const tripsData = {
     "trips": [
         {
-            "_id": "5bdf03aed64fb0cd04e15728",
+            "_id": "64c14d8b4924cc7a8564cf47",
             "name": "Yellowstone 2018"
         },
         {
-            "_id": "5bdf03c212d45cdb5ccec636",
+            "_id": "64c14d494924cc7a8564cf46",
             "name": "Sweden 2017"
         },
         {
-            "_id": "5bdf047ccf4f42dc368590f6",
+            "_id": "64c14c714924cc7a8564cf45",
             "name": "First trip"
         }
     ]
