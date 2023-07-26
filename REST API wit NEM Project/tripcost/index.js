@@ -3,8 +3,10 @@ const mongo = require("mongodb").MongoClient;
 
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1/tripcost', { useNewUrlParser: true })
-const url = "mongodb://127.0.0.1/tripcost";
+mongoose.connect('mongodb://127.0.0.1:27017/tripcost', { useNewUrlParser: true })
+const url = "mongodb://127.0.0.1:27017/tripcost";
+
+
 const app = express()
 
 //use the express.json() middleware
@@ -14,7 +16,7 @@ app.use(express.json())
 let db, trips, expenses
 
 mongo.connect(
-    'mongodb://127.0.0.1',
+    'mongodb://127.0.0.1:27017',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
