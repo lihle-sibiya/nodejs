@@ -15,22 +15,41 @@ app.use(express.json())
 //connect to the database using connect():
 let db, trips, expenses
 
-mongo.connect(
-    'mongodb://127.0.0.1:27017',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    },
-    (err, client) => {
-        if (err) {
-            console.error(err)
-            return
-        }
-        db = client.db("tripcost")
-        trips = db.collection("trips") //get a reference to the trips collections
-        expenses = db.collection("expenses") //get a reference to the expenses collections
+
+(async () => {
+    try {
+        await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log("Connected to MongoDB");
+
+        const client = await mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+        db = client.db("tripcost");
+        trips = db.collection("trips");
+        expenses = db.collection("expenses");
+
+        // Start the server after successful connection
+        app.listen(3000, () => console.log("Server ready"));
+    } catch (err) {
+        console.error(err);
     }
-)
+})();
+
+
+// mongo.connect(
+//     'mongodb://127.0.0.1:27017',
+//     {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//     },
+//     (err, client) => {
+//         if (err) {
+//             console.error(err)
+//             return
+//         }
+//         db = client.db("tripcost")
+//         trips = db.collection("trips") //get a reference to the trips collections
+//         expenses = db.collection("expenses") //get a reference to the expenses collections
+//     }
+// )
 
 //add the stubs for the API endpoints
 app.post("/trip", (req, res) => {//a way for client to add trip using the POST /trip endpoint
@@ -83,17 +102,35 @@ app.post("/expense", (req, res) => {
     )
 })
 
-//List all expenses
-app.get("/expenses", (req, res) => {
-    expenses.find({ trip: req.body.trip }).toArray((err, items) => {
-        if (err) {
-            console.error(err)
-            res.status(500).json({ err: err })
-            return
+// //List all expenses
+// app.get("/expenses", (req, res) => {
+//     expenses.find({ trip: req.body.trip }).toArray((err, items) => {
+//         if (err) {
+//             console.error(err)
+//             res.status(500).json({ err: err })
+//             return
+//         }
+//         res.status(200).json({ expenses: items })
+//     })
+// })
+
+app.get("/expenses", async (req, res) => {
+    try {
+        const tripId = req.body.trip; // Assuming the trip ID is sent in the request body
+
+        if (!tripId) {
+            res.status(400).json({ error: "Missing trip ID in the request body" });
+            return;
         }
-        res.status(200).json({ expenses: items })
-    })
-})
+
+        const expensesForTrip = await expenses.find({ trip: tripId }).toArray();
+
+        res.status(200).json({ expenses: expensesForTrip });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: err });
+    }
+});
 
 //Add an expense
 const tripsData = {
