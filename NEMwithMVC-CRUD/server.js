@@ -1,5 +1,6 @@
-const express = require('express');const app = express();
-
+const express = require('express');
+const bodyParser= require('body-parser')
+const app = express()
 
 //READ - R in CRUD
 app.get('/', (req, res) => {  
