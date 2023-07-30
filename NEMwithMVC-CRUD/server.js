@@ -3,11 +3,6 @@ const bodyParser = require('body-parser')
 const app = express()
 const mongoose = require('mongoose')
 
-// mongoose.connect('mongodb://127.0.0.1/star-wars-quotes', { useNewUrlParser: true },
-//     (err, database) => {
-//         let db = database;
-//         if (err) return console.log(err);
-//     });
 app.set('view engine', 'ejs')
 mongoose.connect('mongodb://127.0.0.1/star-wars-quotes', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -30,18 +25,6 @@ const quote = mongoose.model('quote', quoteSchema);
 
 
 //READ - R in CRUD
-// app.get('/', (req, res) => {
-//     res.sendFile(__dirname + '/index.html')
-// })  // Note: __dirname is the path to your current working directory. Try logging it and see what you get!   // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
-
-
-// app.get('/', (req, res) => {
-//     db.collection('quotes').find().toArray((err, result) => {
-//         if (err) return console.log(err)    // renders index.ejs    
-//         res.render('index.ejs', { quotes: result })
-//     })
-// })
-
 app.get('/', async (req, res) => {
     try {
         const quotes = await quote.find({}).exec();
@@ -52,10 +35,9 @@ app.get('/', async (req, res) => {
     }
 });
 
-
 //CREATE - C in CRUD
 app.post('/quotes', (req, res) => {
-    const newQuote = new Quote({ quote: req.body.quote, name: req.body.name });
+    const newQuote = new quote({ quote: req.body.quote, name: req.body.name });
     newQuote.save()
         .then(() => {
             console.log('Quote saved to database');
@@ -63,7 +45,6 @@ app.post('/quotes', (req, res) => {
         })
         .catch((err) => {
             console.error('Error saving quote:', err);
-            res.status(500).send('Error saving quote to the database');
         });
 });
 
