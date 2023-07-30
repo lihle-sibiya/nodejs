@@ -3,7 +3,7 @@ const expressSession = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose')//page 53 - Connecting to MongoDB from Node
 
-mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true })
+mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, useUnifiedTopology: true  })
 
 const app = new express()
 const ejs = require('ejs')

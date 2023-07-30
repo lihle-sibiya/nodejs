@@ -3,7 +3,7 @@ const expressSession = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb+srv://Rashid:12345@testcluster1.gzv5rb3.mongodb.net/my_database', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://Rashid:12345@testcluster1.gzv5rb3.mongodb.net/my_database', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = new express()
 const ejs = require('ejs')
